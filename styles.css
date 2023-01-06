@@ -45,9 +45,17 @@
 
 .main {
     margin-top: 50px;
+
 }
 
 body {
     background-image: url(./cool-background.png);
+    background-attachment: fixed;
     background-size: cover;
+
+}
+
+.logo {
+    width: 25px;
+
 }
