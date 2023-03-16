@@ -2,33 +2,266 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruben GAY</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<header>
-    <nav class="topnav">
-        <div id="logocontainer">
-            <img class="picturelogo" src="./rg logo.png" alt="'logo">
-        </div>
-        <a href="https://www.linkedin.com/in/ruben-gay/">
-            <img class="logo" src="./lkin.png" alt="logo">
-        </a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="./images/R.jpg" />
 
-        <div class="topnav-right">
-            <a class=" active" href="./CVRubenGAY.pdf">CV</a>
-        </div>
-    </nav>
-</header>
+  <title>
+    Ruben Gay | A Web Developer
+  </title>
+
+  <meta name="description" content="Add small description of yourslef.">
+  <meta name="keywords" content="Put your name, skills and some coding keywords" />
+  <link rel="stylesheet" href="index.css" />
+</head>
 
 <body>
-    <div class="main">
-        <p>Some text some text some text some text..</p>
+
+  <!-- ***** Header ***** -->
+
+  <header class="header" role="banner" id="top">
+    <div class="row">
+      <nav class="nav" role="navigation">
+        <ul class="nav__items">
+          <li class="nav__item"><a href="#work" class="nav__link">Projets</a></li>
+          <li class="nav__item"><a href="#clients" class="nav__link">Compétences</a></li>
+          <li class="nav__item">
+            <a href="#about" class="nav__link">À propos</a>
+          </li>
+          <li class="nav__item">
+            <a href="#contact" class="nav__link">Contact</a>
+          </li>
+        </ul>
+      </nav>
     </div>
+    <div class="header__text-box row">
+      <div class="header__text">
+        <h1 class="heading-primary">
+
+          <span>Ruben Gay</span>
+        </h1>
+
+        <p>Étudiant en Informatique à l'Université de Montpellier/Sète</p>
+        <a href="#contact" class="btn btn--pink">Me contacter</a>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+
+    <!-- ***** Projets ***** -->
+
+    <section class="work" id="work">
+      <div class="row">
+        <h2>Projets</h2>
+        <div class="work__boxes">
+
+
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Feurum</h3>
+              <p>
+                Forum de décision collective
+              </p>
+              <ul class="work__list">
+                <li>PHP</li>
+                <li>HTML</li>
+                <li>CSS</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="./images/cahier-charges-AS-V2.pdf" target="_blank" class="link__text" type="application/pdf">
+                  Consignes <span>&rarr;</span>
+                </a>
+                <a href="https://github.com/Ruben-GAY/SAE-S3.A.01" title="View Source Code" target="_blank">
+                  <img src="./images/github.svg" class="work__code" alt="GitHub">
+                </a>
+                <a href="https://youtu.be/dGr4kbTKgg4" title="View Source Code" target="_blank">
+                  <img src="./images/youtube-svgrepo-com.svg" class="work__code" alt="GitHub">
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/feurum.png" class="work__image" alt="Project 1" />
+
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Site vitrine d'une controverse</h3>
+              <p>
+                Site web sur une controverse sociotechnique qui questionne les écosystèmes
+                numériques
+              </p>
+              <ul class="work__list">
+                <li>HTML</li>
+                <li>CSS</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="./images/controversy-website.pdf" target="_blank" class="link__text" type="application/pdf">
+                  Consignes <span>&rarr;</span>
+                </a>
+                <a href=" https://github.com/Ruben-GAY/Site_controverse" title="View Source Code" target="_blank">
+                  <img src=" ./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/site_controverse.png" class="work__image" alt="Project 1" />
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Miraculum</h3>
+              <p>
+                Miraculum est un jeu créé en l'espace de 48 heures par une équipe de développement durant la Code Game
+                Jam 2022. Dans ce jeu, le joueur incarne un crabe qui doit collecter des objets pour lutter contre la
+                pollution des océans. Cependant, il doit également éviter de perdre de la vie en manquant des objets
+                ou
+                en absorbant des substances nuisibles à l'environnement aquatique.
+              </p>
+              <ul class="work__list">
+                <li>C++</li>
+                <li>C#</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="https://codegamejam.extragames.fr/editions-precedentes/edition-6-merveilles-des-profondeurs/"
+                  class="link__text" target="_blank">
+                  Consignes <span>&rarr;</span>
+                </a>
+                <a href=" https://github.com/Ruben-GAY/Miraculum" title="View Source Code" target="_blank">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/miraculum.png" class="work__image" alt="Project 3" />
+            </div>
+          </div>
+          <div class="work__box">
+            <div class="work__text">
+              <h3>GoGym!</h3>
+              <p>
+                L'application Gogym! sert à mettre en place un minuteur qui correspond au temps de repos nécessaire
+                entre les séries d'exercices de musculation. De plus, cette application prévoit d'ajouter de nouvelles
+                fonctionnalités dans le futur.
+              </p>
+              <ul class="work__list">
+                <li>React Native</li>
+                <li>JS</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="https://reactnative.dev/" class="link__text" target="_blank">
+                  React native <span>&rarr;</span>
+                </a>
+                <a href="https://github.com/Ruben-GAY/GoGym-" title="View Source Code" target="_blank">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/gogym.png" class="work__image" alt="Project 3" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ***** Compétences ***** -->
+
+    <section class="client" id="clients">
+      <div class="row">
+        <h2>Compétences</h2>
+        <div class="client__logos">
+
+          <img src="./images/java.svg" class="client__logo" alt="Company 2" />
+          <img src="./images/PHP-logo.svg" class="client__logo" alt="Company 3" />
+          <img src="./images/html_css.svg" class="client__logo" alt="Company 1" />
+          <img src="./images/C_Programming_Language.svg" class="client__logo" alt="Company 1" />
+          <img src="./images/Oracle_logo.svg" class="client__logo" alt="Company 3" />
+          <img src="./images/JS.svg" class="client__logo" alt="Company 1" />
+          <img src="./images/python-5.svg" class="client__logo" alt="Company 1" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ***** À propos ***** -->
+
+    <section class="about" id="about">
+      <div class="row">
+        <h2>À propos</h2>
+        <div class="about__content">
+          <div class="about__text">
+
+            <p>
+              Bonjour, je m'appelle Gay Ruben. Je suis actuellement étudiant en deuxième année de BUT informatique à
+              l'Université Montpellier Sète. Mon parcours est centré sur la réalisation d'applications, de leur
+              conception à leur validation. J'ai hâte de mettre mes compétences en pratique dans le monde professionnel.
+            </p>
+
+            <a href="./images/CVRubenGAY.pdf" target="_blank" class=" btn">Mon CV</a>
+          </div>
+
+          <div class="about__photo-container">
+
+            <img class="about__photo" src="./images/photo1.JPG" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ***** Contact ***** -->
+
+  <section class="contact" id="contact">
+    <div class="row">
+      <h2>Contact</h2>
+      <div class="contact__info">
+        <p>
+          Vous pouvez me contacter par mail ou par téléphone au 0781056273.
+        </p>
+
+        <a href="mailto:gay.rubendavid@gmail.com" class="btn">gay.rubendavid@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ***** Footer ***** -->
+
+  <footer role="contentinfo" class="footer">
+    <div class="row">
+
+      <ul class="footer__social-links">
+        <li class="footer__social-link-item">
+          <a href="https://github.com/Ruben-GAY" title="Link to Github Profile" target="_blank">
+            <img src="./images/github.svg" class="footer__social-image" alt="Github">
+          </a>
+        </li>
+        <li class="footer__social-link-item">
+          <a href="https://www.linkedin.com/in/ruben-gay/" target="
+          ">
+            <img src="./images/linkedin.svg" title="Link to Linkedin Profile" class="footer__social-image"
+              alt="Linkedin">
+          </a>
+        </li>
+      </ul>
+
+
+
+
+    </div>
+  </footer>
+
+  <a href="#top" class="back-to-top" title="Back to Top">
+    <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image" />
+  </a>
+  <script src="./index.js"></script>
 </body>
 
 </html>
