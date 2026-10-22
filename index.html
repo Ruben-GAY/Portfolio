@@ -676,6 +676,31 @@
     .wof-result-actions { display: flex; gap: .7rem; justify-content: center; flex-wrap: wrap; }
     @keyframes wofPop { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
     #wof-confetti { position: fixed; inset: 0; z-index: 10000; pointer-events: none; }
+    #wof-launch {
+      position: fixed; right: 1.4rem; bottom: 1.4rem; z-index: 9000;
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .7rem 1.2rem;
+      background: rgba(17,24,32,.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--white);
+      font-family: var(--font-body); font-size: .8rem; letter-spacing: .04em;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+      opacity: 0; transform: translateY(16px);
+      animation: wofIn .6s 1.5s ease forwards;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    #wof-launch:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    #wof-launch .wof-launch-icon { font-size: 1rem; display: inline-block; }
+    #wof-launch:hover .wof-launch-icon { animation: wofWiggle .5s ease; }
+    #wof-launch.hidden { visibility: hidden; }
+    @keyframes wofIn { to { opacity: 1; transform: none; } }
+    @keyframes wofWiggle { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
+    @media (max-width: 768px) {
+      #wof-launch { right: 1rem; bottom: 1rem; padding: .6rem 1rem; font-size: .75rem; }
+    }
     @media (prefers-reduced-motion: reduce) {
       #wof-wheel { transition-duration: 1.2s; }
     }
@@ -1207,6 +1232,7 @@
   </div>
 </div>
 <canvas id="wof-confetti"></canvas>
+<button id="wof-launch" aria-haspopup="dialog"><span class="wof-launch-icon">🎯</span> Tentez votre chance</button>
 
 <script>
   (function(){
@@ -1283,8 +1309,11 @@
       }
     }
 
+    const launchBtn = document.getElementById('wof-launch');
+
     function openPopup(){
       overlay.classList.add('open');
+      launchBtn.classList.add('hidden');
       document.body.style.overflow = 'hidden';
       requestAnimationFrame(drawWheel);
       spinBtn.focus();
@@ -1292,6 +1321,8 @@
     function closePopup(){
       overlay.classList.remove('open');
       document.body.style.overflow = '';
+      launchBtn.classList.remove('hidden');
+      launchBtn.focus();
     }
 
     function spin(){
@@ -1407,8 +1438,8 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closePopup(); });
     window.addEventListener('resize', () => { if (overlay.classList.contains('open')) drawWheel(); resizeConfetti(); });
 
-    /* Ouverture à l'arrivée sur le site */
-    window.addEventListener('load', () => setTimeout(openPopup, 600));
+    /* Ouverture uniquement au clic sur le bouton flottant */
+    launchBtn.addEventListener('click', openPopup);
   })();
 </script>
 </body>
