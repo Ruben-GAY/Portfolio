@@ -586,6 +586,99 @@
       .stats-bar { grid-template-columns: 1fr 1fr; }
       .stat-item:nth-child(2) { border-right: none; }
     }
+
+    /* ── ROUE DE LA FORTUNE (popup d'accueil) ── */
+    #wof-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      background: rgba(5,8,12,.78);
+      backdrop-filter: blur(8px);
+      opacity: 0; visibility: hidden;
+      transition: opacity .4s ease, visibility .4s ease;
+    }
+    #wof-overlay.open { opacity: 1; visibility: visible; }
+    .wof-modal {
+      position: relative;
+      width: 100%; max-width: 460px;
+      max-height: calc(100vh - 2rem); overflow-y: auto;
+      background: linear-gradient(160deg, var(--bg3), var(--bg));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.2rem 1.8rem 2rem;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(201,168,76,.08) inset;
+      transform: translateY(24px) scale(.96);
+      transition: transform .5s cubic-bezier(.2,.9,.3,1.2);
+    }
+    #wof-overlay.open .wof-modal { transform: none; }
+    .wof-close {
+      position: absolute; top: .9rem; right: .9rem;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); font-size: 1.1rem; line-height: 1; cursor: pointer;
+      transition: color .2s, border-color .2s;
+    }
+    .wof-close:hover { color: var(--gold); border-color: var(--gold); }
+    .wof-kicker {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .4rem;
+    }
+    .wof-title {
+      font-family: var(--font-head); font-size: 2.2rem; font-weight: 700;
+      line-height: 1.1; margin-bottom: 1.4rem;
+    }
+    .wof-wheel-wrap {
+      position: relative;
+      width: min(320px, 72vw); aspect-ratio: 1;
+      margin: 0 auto 1.6rem;
+    }
+    .wof-wheel-wrap::before {
+      content: ''; position: absolute; inset: -10px; border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--gold), var(--gold-lt), var(--gold), #8a6d24, var(--gold));
+      box-shadow: 0 0 40px rgba(201,168,76,.25);
+    }
+    #wof-wheel {
+      position: relative; display: block;
+      width: 100%; height: 100%; border-radius: 50%;
+      transition: transform 5.2s cubic-bezier(.12,.75,.12,1);
+    }
+    .wof-pointer {
+      position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0; z-index: 2;
+      border-left: 16px solid transparent; border-right: 16px solid transparent;
+      border-top: 30px solid var(--white);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,.5));
+    }
+    .wof-hub {
+      position: absolute; top: 50%; left: 50%; z-index: 2;
+      width: 22%; aspect-ratio: 1; transform: translate(-50%,-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, var(--gold-lt), var(--gold) 55%, #8a6d24);
+      border: 3px solid var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-weight: 700; color: var(--bg); font-size: 1.1rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,.5);
+    }
+    #wof-spin { min-width: 220px; }
+    #wof-spin:disabled { opacity: .55; cursor: wait; transform: none; }
+    .wof-result { display: none; animation: wofPop .6s cubic-bezier(.2,.9,.3,1.3) both; }
+    .wof-result.show { display: block; }
+    .wof-result-tag {
+      display: inline-block; padding: .3rem .9rem; border-radius: 999px;
+      font-size: .74rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--bg); font-weight: 500; margin-bottom: .8rem;
+    }
+    .wof-result-text {
+      font-family: var(--font-head); font-size: 1.55rem; font-weight: 600;
+      line-height: 1.25; margin-bottom: 1.4rem;
+    }
+    .wof-result-actions { display: flex; gap: .7rem; justify-content: center; flex-wrap: wrap; }
+    @keyframes wofPop { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+    #wof-confetti { position: fixed; inset: 0; z-index: 10000; pointer-events: none; }
+    @media (prefers-reduced-motion: reduce) {
+      #wof-wheel { transition-duration: 1.2s; }
+    }
   </style>
 </head>
 <body>
@@ -1089,6 +1182,234 @@
     if(entries[0].isIntersecting){ animateCounters(); statsObs.disconnect(); }
   },{ threshold:.5 });
   statsObs.observe(document.querySelector('.stats-bar'));
+</script>
+
+<!-- ── ROUE DE LA FORTUNE (popup d'accueil) ── -->
+<div id="wof-overlay" role="dialog" aria-modal="true" aria-labelledby="wof-title">
+  <div class="wof-modal">
+    <button class="wof-close" id="wof-close" aria-label="Fermer">✕</button>
+    <div class="wof-kicker">Bienvenue, recruteur·euse</div>
+    <div class="wof-title" id="wof-title">Tournez la <span style="color:var(--gold)">roue</span> !</div>
+    <div class="wof-wheel-wrap">
+      <div class="wof-pointer"></div>
+      <canvas id="wof-wheel"></canvas>
+      <div class="wof-hub">RG.</div>
+    </div>
+    <button class="btn-primary" id="wof-spin">🎯 Tournez la roue</button>
+    <div class="wof-result" id="wof-result" aria-live="polite">
+      <span class="wof-result-tag" id="wof-tag"></span>
+      <div class="wof-result-text" id="wof-text"></div>
+      <div class="wof-result-actions">
+        <button class="btn-primary" id="wof-go">Découvrir le profil</button>
+        <button class="btn-outline" id="wof-again">Rejouer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<canvas id="wof-confetti"></canvas>
+
+<script>
+  (function(){
+    const SEGMENTS = [
+      { label: 'JACKPOT',      color: '#ef4444' },
+      { label: 'GROS LOT',     color: '#f97316' },
+      { label: 'BINGO',        color: '#eab308' },
+      { label: 'PÉPITE',       color: '#22c55e' },
+      { label: 'PERLE RARE',   color: '#06b6d4' },
+      { label: 'TOP PROFIL',   color: '#3b82f6' },
+      { label: 'COUP DE CŒUR', color: '#8b5cf6' },
+      { label: 'BON CHOIX',    color: '#ec4899' }
+    ];
+    const PHRASES = [
+      "Vous êtes chanceux : vous êtes tombé sur le meilleur candidat !",
+      "Vous avez touché le gros lot : vous avez le meilleur candidat !",
+      "Jackpot ! Le profil que vous cherchiez est juste ici.",
+      "Félicitations, vous venez de dénicher la perle rare !",
+      "Bingo ! Chef de projet, BA et Data Analyst : 3 profils pour le prix d'un.",
+      "Coup de chance : le meilleur candidat est disponible immédiatement !",
+      "C'est votre jour de chance : votre prochaine recrue est à un clic.",
+      "Gagné ! Vous repartez avec le candidat idéal."
+    ];
+
+    const overlay = document.getElementById('wof-overlay');
+    const wheel   = document.getElementById('wof-wheel');
+    const spinBtn = document.getElementById('wof-spin');
+    const result  = document.getElementById('wof-result');
+    const tagEl   = document.getElementById('wof-tag');
+    const textEl  = document.getElementById('wof-text');
+    const SEG = 360 / SEGMENTS.length;
+    let rotation = 0, spinning = false, lastPhrase = -1;
+
+    /* Dessin de la roue */
+    function drawWheel(){
+      const dpr = window.devicePixelRatio || 1;
+      const size = wheel.clientWidth;
+      wheel.width = wheel.height = size * dpr;
+      const ctx = wheel.getContext('2d');
+      ctx.scale(dpr, dpr);
+      const c = size / 2, r = c;
+      SEGMENTS.forEach((s, i) => {
+        const a0 = (i * SEG - 90) * Math.PI / 180;
+        const a1 = ((i + 1) * SEG - 90) * Math.PI / 180;
+        ctx.beginPath();
+        ctx.moveTo(c, c);
+        ctx.arc(c, c, r, a0, a1);
+        ctx.closePath();
+        ctx.fillStyle = s.color;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,.85)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        /* texte */
+        ctx.save();
+        ctx.translate(c, c);
+        ctx.rotate((a0 + a1) / 2);
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#fff';
+        ctx.font = `600 ${Math.max(9, size * 0.042)}px 'DM Sans', sans-serif`;
+        ctx.shadowColor = 'rgba(0,0,0,.35)';
+        ctx.shadowBlur = 3;
+        ctx.fillText(s.label, r - 12, 0);
+        ctx.restore();
+      });
+      /* petites ampoules sur le bord */
+      for (let i = 0; i < SEGMENTS.length * 2; i++) {
+        const a = (i * SEG / 2 - 90) * Math.PI / 180;
+        ctx.beginPath();
+        ctx.arc(c + Math.cos(a) * (r - 5), c + Math.sin(a) * (r - 5), 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      }
+    }
+
+    function openPopup(){
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(drawWheel);
+      spinBtn.focus();
+    }
+    function closePopup(){
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function spin(){
+      if (spinning) return;
+      spinning = true;
+      spinBtn.disabled = true;
+      result.classList.remove('show');
+
+      const index  = Math.floor(Math.random() * SEGMENTS.length);
+      const jitter = (Math.random() - .5) * SEG * 0.7;
+      const target = (360 - (index + .5) * SEG + jitter + 360) % 360;
+      let delta = target - (rotation % 360);
+      if (delta < 0) delta += 360;
+      rotation += 360 * 6 + delta;
+      wheel.style.transform = `rotate(${rotation}deg)`;
+
+      wheel.addEventListener('transitionend', function done(){
+        wheel.removeEventListener('transitionend', done);
+        let p;
+        do { p = Math.floor(Math.random() * PHRASES.length); } while (p === lastPhrase);
+        lastPhrase = p;
+        const seg = SEGMENTS[index];
+        tagEl.textContent = seg.label;
+        tagEl.style.background = seg.color;
+        textEl.textContent = PHRASES[p];
+        spinBtn.style.display = 'none';
+        result.classList.add('show');
+        launchConfetti();
+        spinning = false;
+      });
+    }
+
+    /* Confettis */
+    const cCanvas = document.getElementById('wof-confetti');
+    const cctx = cCanvas.getContext('2d');
+    const COLORS = ['#ef4444','#f97316','#eab308','#22c55e','#06b6d4','#3b82f6','#8b5cf6','#ec4899','#c9a84c','#ffffff'];
+    let pieces = [], animId = null;
+
+    function resizeConfetti(){
+      cCanvas.width = window.innerWidth;
+      cCanvas.height = window.innerHeight;
+    }
+    function launchConfetti(){
+      resizeConfetti();
+      const W = cCanvas.width, H = cCanvas.height;
+      for (let i = 0; i < 260; i++) {
+        const fromLeft = i % 2 === 0;
+        pieces.push({
+          x: fromLeft ? -10 : W + 10,
+          y: H * (0.55 + Math.random() * 0.35),
+          vx: (fromLeft ? 1 : -1) * (4 + Math.random() * 9),
+          vy: -(9 + Math.random() * 11),
+          w: 6 + Math.random() * 6,
+          h: 8 + Math.random() * 10,
+          rot: Math.random() * 360,
+          vr: (Math.random() - .5) * 14,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          circle: Math.random() < .25,
+          life: 0
+        });
+      }
+      for (let i = 0; i < 120; i++) {
+        pieces.push({
+          x: Math.random() * W, y: -20 - Math.random() * H * 0.5,
+          vx: (Math.random() - .5) * 2, vy: 2 + Math.random() * 3,
+          w: 6 + Math.random() * 6, h: 8 + Math.random() * 10,
+          rot: Math.random() * 360, vr: (Math.random() - .5) * 12,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          circle: Math.random() < .25, life: 0
+        });
+      }
+      if (!animId) animId = requestAnimationFrame(tick);
+    }
+    function tick(){
+      const H = cCanvas.height;
+      cctx.clearRect(0, 0, cCanvas.width, H);
+      pieces.forEach(p => {
+        p.vy += 0.25;            /* gravité */
+        p.vx *= 0.985;           /* frottement */
+        p.vy = Math.min(p.vy, 6);
+        p.x += p.vx + Math.sin(p.life / 10) * 0.6;
+        p.y += p.vy;
+        p.rot += p.vr;
+        p.life++;
+        cctx.save();
+        cctx.translate(p.x, p.y);
+        cctx.rotate(p.rot * Math.PI / 180);
+        cctx.fillStyle = p.color;
+        if (p.circle) {
+          cctx.beginPath(); cctx.arc(0, 0, p.w / 2, 0, Math.PI * 2); cctx.fill();
+        } else {
+          cctx.scale(1, Math.cos(p.life / 6));
+          cctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        }
+        cctx.restore();
+      });
+      pieces = pieces.filter(p => p.y < H + 40);
+      if (pieces.length) animId = requestAnimationFrame(tick);
+      else { animId = null; cctx.clearRect(0, 0, cCanvas.width, H); }
+    }
+
+    /* Événements */
+    spinBtn.addEventListener('click', spin);
+    document.getElementById('wof-again').addEventListener('click', () => {
+      result.classList.remove('show');
+      spinBtn.style.display = '';
+      spinBtn.disabled = false;
+      spin();
+    });
+    document.getElementById('wof-go').addEventListener('click', closePopup);
+    document.getElementById('wof-close').addEventListener('click', closePopup);
+    overlay.addEventListener('click', e => { if (e.target === overlay && !spinning) closePopup(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closePopup(); });
+    window.addEventListener('resize', () => { if (overlay.classList.contains('open')) drawWheel(); resizeConfetti(); });
+
+    /* Ouverture à l'arrivée sur le site */
+    window.addEventListener('load', () => setTimeout(openPopup, 600));
+  })();
 </script>
 </body>
 </html>
