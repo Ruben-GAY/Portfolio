@@ -587,6 +587,31 @@
       .stat-item:nth-child(2) { border-right: none; }
     }
 
+    /* ── SÉLECTEUR DE LANGUE ── */
+    nav ul { margin-left: auto; margin-right: 1.6rem; }
+    .lang-switch {
+      display: inline-flex; position: relative;
+      padding: 3px; border: 1px solid var(--border); border-radius: 999px;
+      background: rgba(255,255,255,.02);
+    }
+    .lang-switch::before {
+      content: ''; position: absolute; top: 3px; bottom: 3px; left: 3px;
+      width: calc(50% - 3px); border-radius: 999px; background: var(--gold);
+      transition: transform .3s cubic-bezier(.4,1.3,.5,1);
+    }
+    .lang-switch.is-en::before { transform: translateX(100%); }
+    .lang-switch button {
+      position: relative; z-index: 1;
+      background: none; border: none; cursor: pointer;
+      padding: .32rem .8rem; min-width: 40px;
+      font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em;
+      color: var(--muted); transition: color .25s;
+    }
+    .lang-switch button:hover { color: var(--white); }
+    .lang-switch button[aria-pressed="true"] { color: var(--bg); font-weight: 500; }
+    [data-i18n] { transition: opacity .2s ease; }
+    body.lang-fading [data-i18n] { opacity: 0; }
+
     /* ── ROUE DE LA FORTUNE (popup d'accueil) ── */
     #wof-overlay {
       position: fixed; inset: 0; z-index: 9999;
@@ -714,52 +739,56 @@
 <nav>
   <div class="logo">RG.</div>
   <ul>
-    <li><a href="#about">Profil</a></li>
-    <li><a href="#skills">Compétences</a></li>
-    <li><a href="#experience">Expériences</a></li>
-    <li><a href="#formation">Formation</a></li>
-    <li><a href="#contact" class="nav-cta">Me contacter</a></li>
+    <li><a href="#about" data-i18n="t1">Profil</a></li>
+    <li><a href="#skills" data-i18n="t2">Compétences</a></li>
+    <li><a href="#experience" data-i18n="t3">Expériences</a></li>
+    <li><a href="#formation" data-i18n="t4">Formation</a></li>
+    <li><a href="#contact" class="nav-cta" data-i18n="t5">Me contacter</a></li>
   </ul>
+  <div class="lang-switch" role="group" aria-label="Langue / Language">
+    <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="badge">
+    <div class="badge" data-i18n="t6">
       <span class="badge-dot"></span>
       Disponible immédiatement · CDI
     </div>
     <h1>Ruben <span class="highlight">Gay</span></h1>
     <div class="hero-titles">
-      <span class="hero-title-item">Chef de Projet SI</span>
+      <span class="hero-title-item" data-i18n="t7">Chef de Projet SI</span>
       <span class="hero-title-item">Business Analyst</span>
       <span class="hero-title-item">Data Analyst</span>
     </div>
-    <p class="hero-sub">
+    <p class="hero-sub" data-i18n="t8">
       Franco-suisse, <strong>Master CMSI</strong> (IAE Montpellier) — 2 ans d'AMOA chez Groupama G2S
       sur des projets SIRH, automatisation et data. Double profil <strong>technique & business</strong>, basé à Montpellier.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Me contacter</a>
-      <a href="https://www.linkedin.com/in/ruben-gay" target="_blank" class="btn-outline">Voir LinkedIn →</a>
+      <a href="#contact" class="btn-primary" data-i18n="t9">Me contacter</a>
+      <a href="https://www.linkedin.com/in/ruben-gay" target="_blank" class="btn-outline" data-i18n="t10">Voir LinkedIn →</a>
     </div>
     <div class="stats-bar">
       <div class="stat-item">
         <div class="stat-num">2</div>
-        <div class="stat-label">Ans d'AMOA</div>
+        <div class="stat-label" data-i18n="t11">Ans d'AMOA</div>
       </div>
       <div class="stat-item">
         <div class="stat-num">2</div>
-        <div class="stat-label">Entreprises IT</div>
+        <div class="stat-label" data-i18n="t12">Entreprises IT</div>
       </div>
       <div class="stat-item">
         <div class="stat-num">15+</div>
-        <div class="stat-label">Technologies</div>
+        <div class="stat-label" data-i18n="t13">Technologies</div>
       </div>
       <div class="stat-item">
         <div class="stat-num">Bac+5</div>
-        <div class="stat-label">Master IAE</div>
+        <div class="stat-label" data-i18n="t14">Master IAE</div>
       </div>
     </div>
   </div>
@@ -777,20 +806,20 @@
         <div class="about-photo-deco2"></div>
       </div>
       <div class="about-text reveal">
-        <div class="section-label">À propos</div>
-        <h2>Un profil à la croisée<br/>de <span style="color:var(--gold)">l'IT & du business</span></h2>
-        <p>Chef de projet SI et Business Analyst franco-suisse, <strong>Master CMSI</strong> (IAE Montpellier). 2 ans en AMOA chez <strong>Groupama Supports & Services</strong> sur des projets SIRH et notes de frais (Semafore, NEMO) : automatisation de contrôles batch, fiabilisation des données et reporting SQL.</p>
-        <p>Socle technique solide issu d'un <strong>BUT Informatique</strong> et d'1 an de développement web & mobile (React, Flutter) qui facilite le dialogue entre métiers et équipes techniques. Expérience internationale en <strong>Thaïlande</strong> (Global Seminar IT Management, Burapha University).</p>
-        <p>Disponible <strong>immédiatement</strong>, en France et en Suisse (nationalité suisse — aucun permis de travail requis).</p>
+        <div class="section-label" data-i18n="t15">À propos</div>
+        <h2 data-i18n="t16">Un profil à la croisée<br/>de <span style="color:var(--gold)">l'IT & du business</span></h2>
+        <p data-i18n="t17">Chef de projet SI et Business Analyst franco-suisse, <strong>Master CMSI</strong> (IAE Montpellier). 2 ans en AMOA chez <strong>Groupama Supports & Services</strong> sur des projets SIRH et notes de frais (Semafore, NEMO) : automatisation de contrôles batch, fiabilisation des données et reporting SQL.</p>
+        <p data-i18n="t18">Socle technique solide issu d'un <strong>BUT Informatique</strong> et d'1 an de développement web & mobile (React, Flutter) qui facilite le dialogue entre métiers et équipes techniques. Expérience internationale en <strong>Thaïlande</strong> (Global Seminar IT Management, Burapha University).</p>
+        <p data-i18n="t19">Disponible <strong>immédiatement</strong>, en France et en Suisse (nationalité suisse — aucun permis de travail requis).</p>
         <div class="about-chips">
-          <span class="chip">🇫🇷 🇨🇭 Franco-suisse</span>
+          <span class="chip" data-i18n="t20">🇫🇷 🇨🇭 Franco-suisse</span>
           <span class="chip">📍 Montpellier</span>
-          <span class="chip">🚗 Permis B</span>
+          <span class="chip" data-i18n="t21">🚗 Permis B</span>
           <span class="chip">Agile / Scrum</span>
           <span class="chip">ITIL / ITSM</span>
-          <span class="chip">SIRH / AMOA</span>
-          <span class="chip">RGPD</span>
-          <span class="chip">🌍 Expérience int'l</span>
+          <span class="chip" data-i18n="t22">SIRH / AMOA</span>
+          <span class="chip" data-i18n="t23">RGPD</span>
+          <span class="chip" data-i18n="t24">🌍 Expérience int'l</span>
         </div>
       </div>
     </div>
@@ -800,15 +829,15 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="section-inner">
-    <div class="section-label reveal">Compétences</div>
-    <h2 class="reveal">Ce que j'apporte<br/>à votre <span style="color:var(--gold)">organisation</span></h2>
-    <p class="section-desc reveal">Un spectre de compétences couvrant le pilotage projet, l'analyse métier, la data et le développement.</p>
+    <div class="section-label reveal" data-i18n="t25">Compétences</div>
+    <h2 class="reveal" data-i18n="t26">Ce que j'apporte<br/>à votre <span style="color:var(--gold)">organisation</span></h2>
+    <p class="section-desc reveal" data-i18n="t27">Un spectre de compétences couvrant le pilotage projet, l'analyse métier, la data et le développement.</p>
     <div class="skills-grid">
 
       <div class="skill-card reveal">
         <div class="skill-icon">🗂️</div>
-        <h3>Gestion de Projet</h3>
-        <p>Pilotage de A à Z : cadrage, Gantt, comitologie, conduite du changement, go/no-go.</p>
+        <h3 data-i18n="t28">Gestion de Projet</h3>
+        <p data-i18n="t29">Pilotage de A à Z : cadrage, Gantt, comitologie, conduite du changement, go/no-go.</p>
         <div class="skill-tags">
           <span class="skill-tag">JIRA</span>
           <span class="skill-tag">Confluence</span>
@@ -816,14 +845,14 @@
           <span class="skill-tag">Agile</span>
           <span class="skill-tag">Scrum</span>
           <span class="skill-tag">Kanban</span>
-          <span class="skill-tag">Cycle en V</span>
+          <span class="skill-tag" data-i18n="t30">Cycle en V</span>
         </div>
       </div>
 
       <div class="skill-card reveal">
         <div class="skill-icon">🔍</div>
         <h3>Business Analysis</h3>
-        <p>Recueil des besoins métiers, rédaction de user stories, SFD, UAT et support N2.</p>
+        <p data-i18n="t31">Recueil des besoins métiers, rédaction de user stories, SFD, UAT et support N2.</p>
         <div class="skill-tags">
           <span class="skill-tag">AMOA</span>
           <span class="skill-tag">MOA</span>
@@ -837,20 +866,20 @@
       <div class="skill-card reveal">
         <div class="skill-icon">📊</div>
         <h3>Data & Reporting</h3>
-        <p>Extractions SQL, KPIs, tableaux de bord de reporting RH, fiabilisation et qualité des données.</p>
+        <p data-i18n="t32">Extractions SQL, KPIs, tableaux de bord de reporting RH, fiabilisation et qualité des données.</p>
         <div class="skill-tags">
           <span class="skill-tag">SQL</span>
-          <span class="skill-tag">Excel avancé</span>
-          <span class="skill-tag">TCD / Macros</span>
+          <span class="skill-tag" data-i18n="t33">Excel avancé</span>
+          <span class="skill-tag" data-i18n="t34">TCD / Macros</span>
           <span class="skill-tag">KPIs</span>
-          <span class="skill-tag">RGPD</span>
+          <span class="skill-tag" data-i18n="t35">RGPD</span>
         </div>
       </div>
 
       <div class="skill-card reveal">
         <div class="skill-icon">💻</div>
-        <h3>Développement</h3>
-        <p>Web responsive et applications mobiles cross-platform, architecture SaaS multi-tenant, automatisation.</p>
+        <h3 data-i18n="t36">Développement</h3>
+        <p data-i18n="t37">Web responsive et applications mobiles cross-platform, architecture SaaS multi-tenant, automatisation.</p>
         <div class="skill-tags">
           <span class="skill-tag">JavaScript</span>
           <span class="skill-tag">TypeScript</span>
@@ -864,8 +893,8 @@
 
       <div class="skill-card reveal">
         <div class="skill-icon">🏛️</div>
-        <h3>Outils & ITSM</h3>
-        <p>Administration fonctionnelle SIRH, gestion des droits, MCO, support N2 et ITIL.</p>
+        <h3 data-i18n="t38">Outils & ITSM</h3>
+        <p data-i18n="t39">Administration fonctionnelle SIRH, gestion des droits, MCO, support N2 et ITIL.</p>
         <div class="skill-tags">
           <span class="skill-tag">JIRA</span>
           <span class="skill-tag">Confluence</span>
@@ -880,13 +909,13 @@
       <div class="skill-card reveal">
         <div class="skill-icon">🤝</div>
         <h3>Soft Skills</h3>
-        <p>Communication claire entre métiers et techniques, proactivité et orientation résultats.</p>
+        <p data-i18n="t40">Communication claire entre métiers et techniques, proactivité et orientation résultats.</p>
         <div class="skill-tags">
-          <span class="skill-tag">Rigueur</span>
-          <span class="skill-tag">Proactivité</span>
-          <span class="skill-tag">Adaptabilité</span>
+          <span class="skill-tag" data-i18n="t41">Rigueur</span>
+          <span class="skill-tag" data-i18n="t42">Proactivité</span>
+          <span class="skill-tag" data-i18n="t43">Adaptabilité</span>
           <span class="skill-tag">Communication</span>
-          <span class="skill-tag">Résultats</span>
+          <span class="skill-tag" data-i18n="t44">Résultats</span>
         </div>
       </div>
 
@@ -897,26 +926,26 @@
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="section-inner">
-    <div class="section-label reveal">Parcours</div>
-    <h2 class="reveal">Expériences<br/><span style="color:var(--gold)">professionnelles</span></h2>
-    <p class="section-desc reveal">3 ans d'alternance dans des environnements IT exigeants.</p>
+    <div class="section-label reveal" data-i18n="t45">Parcours</div>
+    <h2 class="reveal" data-i18n="t46">Expériences<br/><span style="color:var(--gold)">professionnelles</span></h2>
+    <p class="section-desc reveal" data-i18n="t47">3 ans d'alternance dans des environnements IT exigeants.</p>
 
     <div class="timeline">
 
       <div class="tl-item reveal">
         <div class="tl-dot"></div>
         <div class="tl-meta">
-          <span class="tl-date">Sept. 2024 — Sept. 2026</span>
-          <span class="tl-company">Groupama Supports & Services · Castelnau-le-Lez (34) · Assurance · Équipe MOA SI Interne</span>
+          <span class="tl-date" data-i18n="t48">Sept. 2024 — Sept. 2026</span>
+          <span class="tl-company" data-i18n="t49">Groupama Supports & Services · Castelnau-le-Lez (34) · Assurance · Équipe MOA SI Interne</span>
         </div>
-        <h3>Chef de Projet MOA SI — Alternance</h3>
+        <h3 data-i18n="t50">Chef de Projet MOA SI — Alternance</h3>
         <ul class="tl-bullets">
-          <li>Automatisation des contrôles quotidiens des traitements batch : MVP qui classe les anomalies et génère le rapport de suivi Word</li>
-          <li>Projet NEMO Cost Centre (notes de frais) : recueil du besoin, rédaction des user stories JIRA, recette jusqu'à la validation en préproduction</li>
-          <li>Administration fonctionnelle du SIRH Semafore (centralisateur RH Groupe) : paramétrage, workflows, droits, support N2, MCO via ServiceNow</li>
-          <li>Fiabilisation des données : comparateur CSV, tableau de bord qualité données paie, tests de non-régression</li>
-          <li>Pilotage de projets SI : cadrage, SFD, planification, comités de suivi, UAT, formation utilisateurs, déploiement multi-entités</li>
-          <li>Analyse de données RH : extractions SQL, construction de KPIs et tableaux de bord de reporting</li>
+          <li data-i18n="t51">Automatisation des contrôles quotidiens des traitements batch : MVP qui classe les anomalies et génère le rapport de suivi Word</li>
+          <li data-i18n="t52">Projet NEMO Cost Centre (notes de frais) : recueil du besoin, rédaction des user stories JIRA, recette jusqu'à la validation en préproduction</li>
+          <li data-i18n="t53">Administration fonctionnelle du SIRH Semafore (centralisateur RH Groupe) : paramétrage, workflows, droits, support N2, MCO via ServiceNow</li>
+          <li data-i18n="t54">Fiabilisation des données : comparateur CSV, tableau de bord qualité données paie, tests de non-régression</li>
+          <li data-i18n="t55">Pilotage de projets SI : cadrage, SFD, planification, comités de suivi, UAT, formation utilisateurs, déploiement multi-entités</li>
+          <li data-i18n="t56">Analyse de données RH : extractions SQL, construction de KPIs et tableaux de bord de reporting</li>
         </ul>
         <div class="tl-stack">
           <span class="stack-tag">JIRA</span>
@@ -936,14 +965,14 @@
       <div class="tl-item reveal">
         <div class="tl-dot"></div>
         <div class="tl-meta">
-          <span class="tl-date">Sept. 2023 — Août 2024</span>
-          <span class="tl-company">Aitec Service · Massillargues-Attuech (30) · Édition logicielle</span>
+          <span class="tl-date" data-i18n="t57">Sept. 2023 — Août 2024</span>
+          <span class="tl-company" data-i18n="t58">Aitec Service · Massillargues-Attuech (30) · Édition logicielle</span>
         </div>
-        <h3>Développeur Web & Mobile — Alternance</h3>
+        <h3 data-i18n="t59">Développeur Web & Mobile — Alternance</h3>
         <ul class="tl-bullets">
-          <li>Développement d'un tableau de bord web responsive et d'applications mobiles cross-platform (iOS / Android)</li>
-          <li>Conception de bases de données SQL en architecture multi-tenant sécurisée pour une offre SaaS</li>
-          <li>Cycle Agile complet : daily, sprint planning, review, rétrospective · MCO et documentation technique</li>
+          <li data-i18n="t60">Développement d'un tableau de bord web responsive et d'applications mobiles cross-platform (iOS / Android)</li>
+          <li data-i18n="t61">Conception de bases de données SQL en architecture multi-tenant sécurisée pour une offre SaaS</li>
+          <li data-i18n="t62">Cycle Agile complet : daily, sprint planning, review, rétrospective · MCO et documentation technique</li>
         </ul>
         <div class="tl-stack">
           <span class="stack-tag">React</span>
@@ -962,40 +991,40 @@
 <!-- FORMATION -->
 <section id="formation">
   <div class="section-inner">
-    <div class="section-label reveal">Formation</div>
-    <h2 class="reveal">Parcours<br/><span style="color:var(--gold)">académique</span></h2>
-    <p class="section-desc reveal">Une formation duale technique et managériale, construite sur 5 ans.</p>
+    <div class="section-label reveal" data-i18n="t63">Formation</div>
+    <h2 class="reveal" data-i18n="t64">Parcours<br/><span style="color:var(--gold)">académique</span></h2>
+    <p class="section-desc reveal" data-i18n="t65">Une formation duale technique et managériale, construite sur 5 ans.</p>
     <div class="formation-grid">
       <div class="formation-card reveal">
         <div class="formation-year">2024 — 2026</div>
-        <h3>Master CMSI</h3>
-        <div class="formation-school">Consulting et Management des SI · IAE Montpellier</div>
-        <div style="margin-top:.6rem; font-size:.78rem; color:var(--muted);">Mémoire : impact de l'automatisation des processus SI sur la performance opérationnelle (Groupama G2S)</div>
+        <h3 data-i18n="t66">Master CMSI</h3>
+        <div class="formation-school" data-i18n="t67">Consulting et Management des SI · IAE Montpellier</div>
+        <div style="margin-top:.6rem; font-size:.78rem; color:var(--muted);" data-i18n="t68">Mémoire : impact de l'automatisation des processus SI sur la performance opérationnelle (Groupama G2S)</div>
       </div>
       <div class="formation-card reveal">
-        <div class="formation-year">Mars 2026</div>
+        <div class="formation-year" data-i18n="t69">Mars 2026</div>
         <h3>Global Seminar IT Management</h3>
-        <div class="formation-school">Burapha University · Thaïlande · Certificat</div>
-        <div style="margin-top:.6rem; font-size:.78rem; color:var(--muted);">Programme international Burapha Business School × IAE Montpellier</div>
+        <div class="formation-school" data-i18n="t70">Burapha University · Thaïlande · Certificat</div>
+        <div style="margin-top:.6rem; font-size:.78rem; color:var(--muted);" data-i18n="t71">Programme international Burapha Business School × IAE Montpellier</div>
       </div>
       <div class="formation-card reveal">
         <div class="formation-year">2023 — 2024</div>
-        <h3>Licence 3 MTS</h3>
-        <div class="formation-school">Management des Technologies et Sciences · IAE Montpellier</div>
+        <h3 data-i18n="t72">Licence 3 MTS</h3>
+        <div class="formation-school" data-i18n="t73">Management des Technologies et Sciences · IAE Montpellier</div>
       </div>
       <div class="formation-card reveal">
         <div class="formation-year">2021 — 2024</div>
-        <h3>BUT Informatique (Bac+3)</h3>
-        <div class="formation-school">IUT Montpellier-Sète · Université de Montpellier</div>
+        <h3 data-i18n="t74">BUT Informatique (Bac+3)</h3>
+        <div class="formation-school" data-i18n="t75">IUT Montpellier-Sète · Université de Montpellier</div>
       </div>
     </div>
 
     <div style="margin-top:4rem">
-      <div class="section-label reveal">Langues</div>
+      <div class="section-label reveal" data-i18n="t76">Langues</div>
       <div class="lang-grid" style="margin-top:1.5rem">
         <div class="lang-card reveal">
-          <div class="lang-name">Français</div>
-          <div class="lang-level">Natif</div>
+          <div class="lang-name" data-i18n="t77">Français</div>
+          <div class="lang-level" data-i18n="t78">Natif</div>
           <div class="lang-dots">
             <div class="lang-dot filled"></div>
             <div class="lang-dot filled"></div>
@@ -1005,8 +1034,8 @@
           </div>
         </div>
         <div class="lang-card reveal">
-          <div class="lang-name">Anglais</div>
-          <div class="lang-level">B2 · Programme suivi en anglais</div>
+          <div class="lang-name" data-i18n="t79">Anglais</div>
+          <div class="lang-level" data-i18n="t80">B2 · Programme suivi en anglais</div>
           <div class="lang-dots">
             <div class="lang-dot filled"></div>
             <div class="lang-dot filled"></div>
@@ -1016,8 +1045,8 @@
           </div>
         </div>
         <div class="lang-card reveal">
-          <div class="lang-name">Espagnol</div>
-          <div class="lang-level">A2 · Élémentaire</div>
+          <div class="lang-name" data-i18n="t81">Espagnol</div>
+          <div class="lang-level" data-i18n="t82">A2 · Élémentaire</div>
           <div class="lang-dots">
             <div class="lang-dot filled"></div>
             <div class="lang-dot filled"></div>
@@ -1037,8 +1066,8 @@
     <div class="contact-grid">
       <div>
         <div class="section-label reveal">Contact</div>
-        <h2 class="reveal">Travaillons<br/><span style="color:var(--gold)">ensemble</span></h2>
-        <p style="color:var(--muted); margin-bottom:.5rem" class="reveal">
+        <h2 class="reveal" data-i18n="t83">Travaillons<br/><span style="color:var(--gold)">ensemble</span></h2>
+        <p style="color:var(--muted); margin-bottom:.5rem" class="reveal" data-i18n="t84">
           Disponible immédiatement pour un CDI, en France et en Suisse (nationalité suisse — aucun permis de travail requis).
         </p>
         <div class="contact-links">
@@ -1052,7 +1081,7 @@
           <a href="tel:+33781056273" class="contact-link reveal">
             <div class="contact-link-icon">📞</div>
             <div>
-              <div class="contact-link-label">Téléphone</div>
+              <div class="contact-link-label" data-i18n="t85">Téléphone</div>
               <div class="contact-link-val">+33 7 81 05 62 73</div>
             </div>
           </a>
@@ -1063,47 +1092,47 @@
               <div class="contact-link-val">linkedin.com/in/ruben-gay</div>
             </div>
           </a>
-          <a href="images/CV_Ruben_Gay.pdf" download class="contact-link reveal">
+          <a href="images/CV_Ruben_Gay.pdf" download id="cv-link" class="contact-link reveal">
             <div class="contact-link-icon">📄</div>
             <div>
-              <div class="contact-link-label">CV</div>
-              <div class="contact-link-val">Télécharger le CV PDF</div>
+              <div class="contact-link-label" data-i18n="t87">CV</div>
+              <div class="contact-link-val" data-i18n="t86">Télécharger le CV PDF</div>
             </div>
           </a>
         </div>
       </div>
 
       <div class="availability-box reveal">
-        <div class="avail-badge">
+        <div class="avail-badge" data-i18n="t88">
           <span class="avail-dot"></span>
           Ouvert aux opportunités
         </div>
-        <h3>Disponibilité & Préférences</h3>
-        <p>Je recherche activement un poste en CDI, avec ambition de contribuer à des projets SI d'envergure en France ou en Suisse.</p>
+        <h3 data-i18n="t89">Disponibilité & Préférences</h3>
+        <p data-i18n="t90">Je recherche activement un poste en CDI, avec ambition de contribuer à des projets SI d'envergure en France ou en Suisse.</p>
         <div class="avail-details">
           <div class="avail-row">
-            <span>Type de contrat</span>
-            <span>CDI</span>
+            <span data-i18n="t91">Type de contrat</span>
+            <span data-i18n="t92">CDI</span>
           </div>
           <div class="avail-row">
-            <span>Disponibilité</span>
-            <span>Immédiate</span>
+            <span data-i18n="t93">Disponibilité</span>
+            <span data-i18n="t94">Immédiate</span>
           </div>
           <div class="avail-row">
-            <span>Localisation</span>
-            <span>France · Suisse · Monaco</span>
+            <span data-i18n="t95">Localisation</span>
+            <span data-i18n="t96">France · Suisse · Monaco</span>
           </div>
           <div class="avail-row">
-            <span>Mode de travail</span>
-            <span>Sur site, hybride ou remote</span>
+            <span data-i18n="t97">Mode de travail</span>
+            <span data-i18n="t98">Sur site, hybride ou remote</span>
           </div>
           <div class="avail-row">
-            <span>Postes visés</span>
-            <span>Chef de Projet SI · BA · DA</span>
+            <span data-i18n="t99">Postes visés</span>
+            <span data-i18n="t100">Chef de Projet SI · BA · DA</span>
           </div>
           <div class="avail-row">
-            <span>Nationalité</span>
-            <span>Franco-suisse · Permis B</span>
+            <span data-i18n="t101">Nationalité</span>
+            <span data-i18n="t102">Franco-suisse · Permis B</span>
           </div>
         </div>
       </div>
@@ -1112,7 +1141,7 @@
 </section>
 
 <footer>
-  <p>© 2026 <span>Ruben Gay</span> · Chef de Projet SI · Business Analyst · AMOA & SIRH · Montpellier, France</p>
+  <p data-i18n="t103">© 2026 <span>Ruben Gay</span> · Chef de Projet SI · Business Analyst · AMOA & SIRH · Montpellier, France</p>
 </footer>
 
 <script>
@@ -1212,41 +1241,52 @@
 <!-- ── ROUE DE LA FORTUNE (popup d'accueil) ── -->
 <div id="wof-overlay" role="dialog" aria-modal="true" aria-labelledby="wof-title">
   <div class="wof-modal">
-    <button class="wof-close" id="wof-close" aria-label="Fermer">✕</button>
-    <div class="wof-kicker">Bienvenue, recruteur·euse</div>
-    <div class="wof-title" id="wof-title">Tournez la <span style="color:var(--gold)">roue</span> !</div>
+    <button class="wof-close" id="wof-close" aria-label="Fermer / Close">✕</button>
+    <div class="wof-kicker" data-i18n="t104">Bienvenue, recruteur·euse</div>
+    <div class="wof-title" id="wof-title" data-i18n="t105">Tournez la <span style="color:var(--gold)">roue</span> !</div>
     <div class="wof-wheel-wrap">
       <div class="wof-pointer"></div>
       <canvas id="wof-wheel"></canvas>
       <div class="wof-hub">RG.</div>
     </div>
-    <button class="btn-primary" id="wof-spin">🎯 Tournez la roue</button>
+    <button class="btn-primary" id="wof-spin" data-i18n="t106">🎯 Tournez la roue</button>
     <div class="wof-result" id="wof-result" aria-live="polite">
       <span class="wof-result-tag" id="wof-tag"></span>
       <div class="wof-result-text" id="wof-text"></div>
       <div class="wof-result-actions">
-        <button class="btn-primary" id="wof-go">Découvrir le profil</button>
-        <button class="btn-outline" id="wof-again">Rejouer</button>
+        <button class="btn-primary" id="wof-go" data-i18n="t107">Découvrir le profil</button>
+        <button class="btn-outline" id="wof-again" data-i18n="t108">Rejouer</button>
       </div>
     </div>
   </div>
 </div>
 <canvas id="wof-confetti"></canvas>
-<button id="wof-launch" aria-haspopup="dialog"><span class="wof-launch-icon">🎯</span> Tentez votre chance</button>
+<button id="wof-launch" aria-haspopup="dialog" data-i18n="t109"><span class="wof-launch-icon">🎯</span> Tentez votre chance</button>
 
 <script>
   (function(){
+    const lang = () => (document.documentElement.lang === 'en' ? 'en' : 'fr');
     const SEGMENTS = [
-      { label: 'JACKPOT',      color: '#ef4444' },
-      { label: 'GROS LOT',     color: '#f97316' },
-      { label: 'BINGO',        color: '#eab308' },
-      { label: 'PÉPITE',       color: '#22c55e' },
-      { label: 'PERLE RARE',   color: '#06b6d4' },
-      { label: 'TOP PROFIL',   color: '#3b82f6' },
-      { label: 'COUP DE CŒUR', color: '#8b5cf6' },
-      { label: 'BON CHOIX',    color: '#ec4899' }
+      { fr: 'JACKPOT',      en: 'JACKPOT',     color: '#ef4444' },
+      { fr: 'GROS LOT',     en: 'BIG WIN',     color: '#f97316' },
+      { fr: 'BINGO',        en: 'BINGO',       color: '#eab308' },
+      { fr: 'PÉPITE',       en: 'GEM',         color: '#22c55e' },
+      { fr: 'PERLE RARE',   en: 'RARE FIND',   color: '#06b6d4' },
+      { fr: 'TOP PROFIL',   en: 'TOP PROFILE', color: '#3b82f6' },
+      { fr: 'COUP DE CŒUR', en: 'FAVOURITE',   color: '#8b5cf6' },
+      { fr: 'BON CHOIX',    en: 'GOOD PICK',   color: '#ec4899' }
     ];
-    const PHRASES = [
+    const PHRASES_EN = [
+      "Lucky you: you've landed on the best candidate!",
+      "You've hit the jackpot: you've got the best candidate!",
+      "Jackpot! The profile you were looking for is right here.",
+      "Congratulations, you've just found a rare gem!",
+      "Bingo! Project manager, BA and Data Analyst: 3 profiles for the price of one.",
+      "Lucky break: the best candidate is available right away!",
+      "It's your lucky day: your next hire is one click away.",
+      "You win! You're leaving with the ideal candidate."
+    ];
+    const PHRASES_FR = [
       "Vous êtes chanceux : vous êtes tombé sur le meilleur candidat !",
       "Vous avez touché le gros lot : vous avez le meilleur candidat !",
       "Jackpot ! Le profil que vous cherchiez est juste ici.",
@@ -1256,6 +1296,19 @@
       "C'est votre jour de chance : votre prochaine recrue est à un clic.",
       "Gagné ! Vous repartez avec le candidat idéal."
     ];
+    const phrases = () => (lang() === 'en' ? PHRASES_EN : PHRASES_FR);
+    let lastIndex = -1;
+    function showResult(){
+      if (lastIndex < 0) return;
+      const seg = SEGMENTS[lastIndex];
+      tagEl.textContent = seg[lang()];
+      tagEl.style.background = seg.color;
+      textEl.textContent = phrases()[lastPhrase];
+    }
+    document.addEventListener('langchange', () => {
+      if (overlay.classList.contains('open')) drawWheel();
+      showResult();
+    });
 
     const overlay = document.getElementById('wof-overlay');
     const wheel   = document.getElementById('wof-wheel');
@@ -1296,7 +1349,7 @@
         ctx.font = `600 ${Math.max(9, size * 0.042)}px 'DM Sans', sans-serif`;
         ctx.shadowColor = 'rgba(0,0,0,.35)';
         ctx.shadowBlur = 3;
-        ctx.fillText(s.label, r - 12, 0);
+        ctx.fillText(s[lang()], r - 12, 0);
         ctx.restore();
       });
       /* petites ampoules sur le bord */
@@ -1342,12 +1395,10 @@
       wheel.addEventListener('transitionend', function done(){
         wheel.removeEventListener('transitionend', done);
         let p;
-        do { p = Math.floor(Math.random() * PHRASES.length); } while (p === lastPhrase);
+        do { p = Math.floor(Math.random() * PHRASES_FR.length); } while (p === lastPhrase);
         lastPhrase = p;
-        const seg = SEGMENTS[index];
-        tagEl.textContent = seg.label;
-        tagEl.style.background = seg.color;
-        textEl.textContent = PHRASES[p];
+        lastIndex = index;
+        showResult();
         spinBtn.style.display = 'none';
         result.classList.add('show');
         launchConfetti();
@@ -1440,6 +1491,163 @@
 
     /* Ouverture uniquement au clic sur le bouton flottant */
     launchBtn.addEventListener('click', openPopup);
+  })();
+</script>
+<script>
+  /* ── TRADUCTION FR / EN ── */
+  (function(){
+    const EN = {
+      "t1": "Profile",
+      "t2": "Skills",
+      "t3": "Experience",
+      "t4": "Education",
+      "t5": "Contact me",
+      "t6": "\n      <span class=\"badge-dot\"></span>\n      Available now · Permanent position",
+      "t7": "IT Project Manager",
+      "t8": "\n      French-Swiss, <strong>Master's in IS Consulting & Management</strong> (IAE Montpellier) — 2 years as a business-side IT project manager at Groupama G2S\n      on HRIS, automation and data projects. Dual <strong>technical & business</strong> profile, based in Montpellier.",
+      "t9": "Contact me",
+      "t10": "View LinkedIn →",
+      "t11": "Years in IT project mgmt",
+      "t12": "IT companies",
+      "t13": "Technologies",
+      "t14": "Master's degree",
+      "t15": "About",
+      "t16": "A profile at the crossroads<br/>of <span style=\"color:var(--gold)\">IT & business</span>",
+      "t17": "French-Swiss IT Project Manager and Business Analyst with a <strong>Master's in IS Consulting & Management</strong> (IAE Montpellier). 2 years on the business side of IT at <strong>Groupama Supports & Services</strong>, working on HRIS and expense-management projects (Semafore, NEMO): batch-control automation, data quality and SQL reporting.",
+      "t18": "A solid technical foundation from a <strong>Bachelor's in Computer Science (BUT)</strong> and 1 year of web & mobile development (React, Flutter), which makes it easy to bridge business and technical teams. International experience in <strong>Thailand</strong> (Global Seminar in IT Management, Burapha University).",
+      "t19": "Available <strong>immediately</strong>, in France and Switzerland (Swiss citizen — no work permit required).",
+      "t20": "🇫🇷 🇨🇭 French-Swiss",
+      "t21": "🚗 Driver's licence",
+      "t22": "HRIS / Business-side IT",
+      "t23": "GDPR",
+      "t24": "🌍 International experience",
+      "t25": "Skills",
+      "t26": "What I bring<br/>to your <span style=\"color:var(--gold)\">organisation</span>",
+      "t27": "A range of skills covering project management, business analysis, data and development.",
+      "t28": "Project Management",
+      "t29": "End-to-end delivery: scoping, Gantt planning, steering committees, change management, go/no-go.",
+      "t30": "V-model",
+      "t31": "Requirements gathering, user stories, functional specifications, UAT and level-2 support.",
+      "t32": "SQL extractions, KPIs, HR reporting dashboards, data reliability and quality.",
+      "t33": "Advanced Excel",
+      "t34": "Pivot tables / Macros",
+      "t35": "GDPR",
+      "t36": "Development",
+      "t37": "Responsive web and cross-platform mobile apps, multi-tenant SaaS architecture, automation.",
+      "t38": "Tools & ITSM",
+      "t39": "HRIS functional administration, access rights management, application maintenance, level-2 support and ITIL.",
+      "t40": "Clear communication between business and technical teams, proactive and results-driven.",
+      "t41": "Rigour",
+      "t42": "Proactivity",
+      "t43": "Adaptability",
+      "t44": "Results",
+      "t45": "Career",
+      "t46": "Professional<br/><span style=\"color:var(--gold)\">experience</span>",
+      "t47": "3 years of work-study in demanding IT environments.",
+      "t48": "Sept. 2024 — Sept. 2026",
+      "t49": "Groupama Supports & Services · Castelnau-le-Lez, France · Insurance · Internal IS Business Team",
+      "t50": "IT Project Manager (Business side) — Work-study",
+      "t51": "Automated daily batch-job checks: built an MVP that classifies anomalies and generates the Word follow-up report",
+      "t52": "NEMO Cost Centre project (expense reports): requirements gathering, JIRA user stories, testing through to pre-production sign-off",
+      "t53": "Functional administration of the Semafore HRIS (Group HR hub): configuration, workflows, access rights, level-2 support, maintenance via ServiceNow",
+      "t54": "Data reliability: CSV comparison tool, payroll data-quality dashboard, regression testing",
+      "t55": "IT project management: scoping, functional specs, planning, steering committees, UAT, user training, multi-entity rollout",
+      "t56": "HR data analysis: SQL extractions, KPI design and reporting dashboards",
+      "t57": "Sept. 2023 — Aug. 2024",
+      "t58": "Aitec Service · Massillargues-Attuech, France · Software publisher",
+      "t59": "Web & Mobile Developer — Work-study",
+      "t60": "Developed a responsive web dashboard and cross-platform mobile apps (iOS / Android)",
+      "t61": "Designed SQL databases with a secure multi-tenant architecture for a SaaS product",
+      "t62": "Full Agile cycle: daily stand-ups, sprint planning, reviews, retrospectives · maintenance and technical documentation",
+      "t63": "Education",
+      "t64": "Academic<br/><span style=\"color:var(--gold)\">background</span>",
+      "t65": "A dual technical and management education, built over 5 years.",
+      "t66": "Master's CMSI",
+      "t67": "Information Systems Consulting & Management · IAE Montpellier",
+      "t68": "Thesis: the impact of IS process automation on operational performance (Groupama G2S)",
+      "t69": "March 2026",
+      "t70": "Burapha University · Thailand · Certificate",
+      "t71": "International programme Burapha Business School × IAE Montpellier",
+      "t72": "Bachelor's degree (3rd year) MTS",
+      "t73": "Technology & Science Management · IAE Montpellier",
+      "t74": "Bachelor's in Computer Science (BUT, 3 years)",
+      "t75": "IUT Montpellier-Sète · University of Montpellier",
+      "t76": "Languages",
+      "t77": "French",
+      "t78": "Native",
+      "t79": "English",
+      "t80": "B2 · Programme taught in English",
+      "t81": "Spanish",
+      "t82": "A2 · Elementary",
+      "t83": "Let's work<br/><span style=\"color:var(--gold)\">together</span>",
+      "t84": "\n          Available immediately for a permanent position, in France and Switzerland (Swiss citizen — no work permit required).",
+      "t85": "Phone",
+      "t86": "Download my resume (PDF)",
+      "t87": "Resume",
+      "t88": "\n          <span class=\"avail-dot\"></span>\n          Open to opportunities",
+      "t89": "Availability & Preferences",
+      "t90": "I'm actively looking for a permanent position and keen to contribute to large-scale IT projects in France or Switzerland.",
+      "t91": "Contract type",
+      "t92": "Permanent",
+      "t93": "Availability",
+      "t94": "Immediate",
+      "t95": "Location",
+      "t96": "France · Switzerland · Monaco",
+      "t97": "Work mode",
+      "t98": "On-site, hybrid or remote",
+      "t99": "Target roles",
+      "t100": "IT Project Manager · BA · DA",
+      "t101": "Nationality",
+      "t102": "French-Swiss · Driver's licence",
+      "t103": "© 2026 <span>Ruben Gay</span> · IT Project Manager · Business Analyst · Business-side IT & HRIS · Montpellier, France",
+      "t104": "Welcome, recruiter",
+      "t105": "Spin the <span style=\"color:var(--gold)\">wheel</span>!",
+      "t106": "🎯 Spin the wheel",
+      "t107": "Discover the profile",
+      "t108": "Play again",
+      "t109": "<span class=\"wof-launch-icon\">🎯</span> Try your luck"
+};
+    const META = {
+      fr: { title: document.title, cv: 'images/CV_Ruben_Gay.pdf' },
+      en: { title: 'Ruben Gay — IT Project Manager · Business Analyst · Data Analyst', cv: 'images/Ruben_Gay_Resume.pdf' }
+    };
+    const nodes = document.querySelectorAll('[data-i18n]');
+    nodes.forEach(el => { el.dataset.fr = el.innerHTML; });
+    const sw = document.querySelector('.lang-switch');
+    const cv = document.getElementById('cv-link');
+
+    function apply(lang){
+      nodes.forEach(el => {
+        const html = lang === 'en' ? EN[el.dataset.i18n] : el.dataset.fr;
+        if (html !== undefined) el.innerHTML = html;
+      });
+      document.documentElement.lang = lang;
+      document.title = META[lang].title;
+      cv.setAttribute('href', META[lang].cv);
+      cv.setAttribute('download', META[lang].cv.split('/').pop());
+      sw.classList.toggle('is-en', lang === 'en');
+      sw.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+      document.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
+    }
+
+    function setLang(lang, animate){
+      if (lang === document.documentElement.lang && !animate) return;
+      try { localStorage.setItem('rg-lang', lang); } catch(e) {}
+      if (!animate) return apply(lang);
+      document.body.classList.add('lang-fading');
+      setTimeout(() => { apply(lang); document.body.classList.remove('lang-fading'); }, 200);
+    }
+
+    sw.addEventListener('click', e => {
+      const b = e.target.closest('button[data-lang]');
+      if (b && b.dataset.lang !== document.documentElement.lang) setLang(b.dataset.lang, true);
+    });
+
+    /* Langue au chargement : choix mémorisé, sinon langue du navigateur */
+    let saved = null;
+    try { saved = localStorage.getItem('rg-lang'); } catch(e) {}
+    const initial = saved || ((navigator.language || 'fr').toLowerCase().startsWith('fr') ? 'fr' : 'en');
+    if (initial === 'en') apply('en');
   })();
 </script>
 </body>
